@@ -1,11 +1,18 @@
 import os
-from log_event_module import log_event, logger, LOG_FILE
+import pytest
+from log_event_module import log_event, LOG_FILE
 
+@pytest.fixture(scope="session", autouse=True)
+def clear_log_file_once(): # Очищає файл логів один раз перед запуском усіх тестів
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, "w"):
+            pass  # очищаємо файл
 
 def read_log_file():
-    assert os.path.exists(LOG_FILE), "Файл логування не створено"
+    assert os.path.exists(LOG_FILE), "Log file is not created"
     with open(LOG_FILE, "r") as f:
         return f.read()
+#print("Поточний лог-файл:", os.path.abspath(LOG_FILE))
 
 def test_log_success():
     log_event("alice", "success")
@@ -32,6 +39,8 @@ def test_log_unknown():
     assert "Username: dave, Status: invalid" in content
 
 def test_for_admin():
+    log_event("admin", "failed")
+    log_event("admin", "unknown")
     content = read_log_file()
     assert "ERROR" in content
     assert "INFO" in content
