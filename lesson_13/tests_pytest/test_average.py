@@ -1,5 +1,5 @@
 import pytest
-from Homework_Hillel.lesson_13.homeworks import average
+from lesson_13.homeworks import average
 
 @pytest.mark.parametrize(
     "input_list, expected",

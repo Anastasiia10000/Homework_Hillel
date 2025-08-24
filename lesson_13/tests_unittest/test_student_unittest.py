@@ -1,4 +1,4 @@
-from Homework_Hillel.lesson_13.homeworks import Student
+from lesson_13.homeworks import Student
 import unittest
 
 

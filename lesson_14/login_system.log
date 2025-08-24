@@ -1,6 +1,6 @@
-2025-08-08 00:49:47,183 - INFO - Login event - Username: alice, Status: success
-2025-08-08 00:49:47,184 - WARNING - Login event - Username: bob, Status: expired
-2025-08-08 00:49:47,185 - ERROR - Login event - Username: carol, Status: failed
-2025-08-08 00:49:47,186 - ERROR - Login event - Username: dave, Status: invalid
-2025-08-08 00:49:47,187 - ERROR - Login event - Username: admin, Status: failed
-2025-08-08 00:49:47,187 - ERROR - Login event - Username: admin, Status: unknown
+2025-08-24 15:19:41,771 - INFO - Login event - Username: alice, Status: success
+2025-08-24 15:19:41,772 - WARNING - Login event - Username: bob, Status: expired
+2025-08-24 15:19:41,774 - ERROR - Login event - Username: carol, Status: failed
+2025-08-24 15:19:41,775 - ERROR - Login event - Username: dave, Status: invalid
+2025-08-24 15:19:41,776 - ERROR - Login event - Username: admin, Status: failed
+2025-08-24 15:19:41,776 - ERROR - Login event - Username: admin, Status: unknown
