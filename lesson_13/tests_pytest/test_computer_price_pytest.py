@@ -1,4 +1,4 @@
-from Homework_Hillel.lesson_13.homeworks import computer_price
+from lesson_13.homeworks import computer_price
 import pytest
 
 @pytest.mark.positive
