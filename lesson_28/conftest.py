@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.chrome.options import Options
 from .pages.main_page import MainPage
 from .pages.registration_page import RegistrationPage
 
@@ -13,8 +13,16 @@ BASE_URL = "https://guest:welcome2qauto@qauto2.forstudy.space"
 
 @pytest.fixture(scope="session")
 def driver():
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    driver.maximize_window()
+    chrome_options = Options()
+    # === ОБОВ'ЯЗКОВО для контейнера: headless ===
+    chrome_options.add_argument("--headless=new")  # новий режим headless у Chrome 112+
+    chrome_options.add_argument("--no-sandbox")  # потрібно для контейнерів
+    chrome_options.add_argument("--disable-dev-shm-usage")  # уникнути проблем з /dev/shm
+    chrome_options.add_argument("--disable-gpu")  # старі версії Chrome
+    chrome_options.add_argument("--window-size=1920,1080")  # щоб елементи на сторінці були видимі
+    # === Ініціалізація драйвера ===
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get("https://guest:welcome2qauto@qauto2.forstudy.space")
     yield driver
     driver.quit()

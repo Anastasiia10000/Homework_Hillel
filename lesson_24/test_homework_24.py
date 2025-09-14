@@ -1,11 +1,33 @@
 import pytest
 import requests
+import time
+from threading import Thread
+from api import app  # імпортуємо твій Flask app
 
 BASE_URL = "http://127.0.0.1:5000"
 AUTH_URL = f"{BASE_URL}/auth"
 ITEMS_URL = f"{BASE_URL}/items"
 AUTH_TOKEN = "secret-token"
 
+@pytest.fixture(scope="session", autouse=True)
+def start_api_server():
+    """Запуск Flask API у окремому потоці для тестів без debug та reloader."""
+
+    # Функція для запуску сервера
+    def run_app():
+        # debug=False, use_reloader=False, щоб сервер не перезапускався і не плодив процеси
+        app.run(host="127.0.0.1", port=5000, debug=False, use_reloader=False)
+
+    thread = Thread(target=run_app)
+    thread.daemon = True  # закриється при завершенні тестів
+    thread.start()
+
+    # Чекаємо, поки сервер підніметься
+    time.sleep(1.5)  # можна збільшити до 2 сек, якщо потрібно
+
+    yield  # тут починаються тести
+
+    # Завершення: поток не треба явно зупиняти, бо daemon=True
 
 # ======= Сесійна фікстура для HEADERS =======
 @pytest.fixture(scope="session")
